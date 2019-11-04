@@ -48,12 +48,12 @@ add_action( 'wp_footer', function(){
 					var $controls = $( $els[i] ).find('.mejs-controls');
 					if($controls.length > 0) {
 						$controls.find('.mejs-duration-container').after( $buttons.clone() );
+						$(mediaTag).on('loadedmetadata', function() {
+							var activeSpeed = $(this).closest('.wp-playlist').find('.mejs-container .playback-rate-button.mejs-active');
+								rate = activeSpeed.attr('data-value');
+							$(this)[0].setPlaybackRate(rate);
+						});
 					}
-					$(mediaTag).on('loadedmetadata', function() {
-						var activeSpeed = $(this).closest('.wp-playlist').find('.mejs-container .playback-rate-button.mejs-active')[0];
-							rate = activeSpeed.attr('data-value');
-						$(this).setPlaybackRate(rate);
-					});
 				}
 				$('body').on('click', '.playback-rate-button', function() {
 					var btnEl = $(this),
